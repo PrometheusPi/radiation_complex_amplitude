@@ -8,6 +8,9 @@ particle weight, as commonly used in particle-in-cell codes.
 ## Usage
 
 ```python
+import numpy as np
+import instananeousRadiation as instRad
+
 # define e.g.
 # frequency
 omega = np.linspace(1e2, 5e2, 128) # [rad/s]
@@ -20,7 +23,7 @@ delta_t = 1.2e-15 # [s]
 sim_box_size = np.array([100, 100, 100]) # [m, m, m]
 
 # create object
-comp_rad = instananeousRadiation(omega, n, delta_t, sim_box_size)
+comp_rad = instRad.instantaneousRadiation(omega, n, delta_t, sim_box_size)
 
 # get your particle data
 # ...
