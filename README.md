@@ -7,7 +7,7 @@ particle weight, as commonly used in particle-in-cell codes.
 
 ## Usage
 
-````python
+```python
 # define e.g.
 # frequency
 omega = np.linspace(1e2, 5e2, 128) # [rad/s]
