@@ -29,11 +29,11 @@ comp_rad = instRad.instantaneousRadiation(omega, n, delta_t, sim_box_size)
 # ...
 
 # get complex radiation amplitude
-rad_amplitude = calc_complexAmplitude_loop(time, # current time in [s]
-                                           r, # particle positions in [m, m, m]
-					   p, # particle momenta in [kg*m/s, kg*m/s, kg*m/s]
-					   p_prev, # particle momenta one time step before in [kg*m/s, kg*m/s, kg*m/s]
-					   w) # particle weights
+rad_amplitude = comp_rad.calc_complexAmplitude_loop(time, # current time in [s]
+                                                    r, # particle positions in [m, m, m]
+                                                    p, # particle momenta in [kg*m/s, kg*m/s, kg*m/s]
+                                                    p_prev, # particle momenta one time step before in [kg*m/s, kg*m/s, kg*m/s]
+                                                    w) # particle weights
 
 ```
 
