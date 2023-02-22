@@ -164,7 +164,7 @@ class instantaneousRadiation():
         # [n, particles, {x,y,z}]
         real_amplitude, One_minus_beta_times_n = self.calc_real_amplitude(p, p_prev, w)
         # [omega, n, particle]
-        complex_one = (np.exp(1j * self.omega[:, np.newaxis, np.newaxis] * self.calc_t_ret(0.0, pos)[np.newaxis, :, :]) 
+        complex_one = (np.exp(1j * self.omega[:, np.newaxis, np.newaxis] * self.calc_t_ret(time, pos)[np.newaxis, :, :]) 
                        * self.check_Nyquist(One_minus_beta_times_n)
                        * self.calc_window_function(pos)[np.newaxis, np.newaxis, :]
                        * self.calc_radFormFactor_Gauss_spherical(w)[:, np.newaxis, :]
