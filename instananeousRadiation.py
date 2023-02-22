@@ -83,18 +83,18 @@ class instantaneousRadiation():
         beta_dot = (beta - self.calc_beta(p_prev, w)) / self.delta_t
 
         # n - beta: [N_n, N_p, 3]
-        n_minus_beta = (n[:, np.newaxis, :] - beta[np.newaxis, :, :])
+        n_minus_beta = (self.n[:, np.newaxis, :] - beta[np.newaxis, :, :])
         
         # (n - beta) % dot(beta): [N_n, N_p, 3]
         n_minus_beta_cross_betaDot = np.cross(n_minus_beta, beta_dot)
         del(n_minus_beta)
         
         # n % [ (n - beta) % dot(beta) ]: [N_n, N_p, 3] 
-        non_normed_amplitude = np.cross(n[:, np.newaxis, :], n_minus_beta_cross_betaDot)
+        non_normed_amplitude = np.cross(self.n[:, np.newaxis, :], n_minus_beta_cross_betaDot)
         del(n_minus_beta_cross_betaDot)
         
         # 1 - n * beta: [N_n, N_p]
-        One_minus_beta_times_n = ((1.0 - np.sum(n[:, np.newaxis, :] * beta[np.newaxis, :, :], axis=-1)))
+        One_minus_beta_times_n = ((1.0 - np.sum(self.n[:, np.newaxis, :] * beta[np.newaxis, :, :], axis=-1)))
         
         # { n % [ (n - beta) % dot(beta) ]} / {1 - n * beta}^2 and (1 - n * beta) to not run this computation again
         return non_normed_amplitude * One_minus_beta_times_n[:, :, np.newaxis]**2, One_minus_beta_times_n
@@ -127,12 +127,12 @@ class instantaneousRadiation():
         return window value for each particle np.array(N_p)
         """
         # TODO: hard coded a Triplett window - needs flexibility 
-        x = pos - 0.5 * sim_box_size
+        x = pos - 0.5 * self.sim_box_size
         # TODO: here seems to be an error in the PIConGPU code (just kept it this wrong way - might need fix soon)
-        cosinusValue = np.cos(np.pi*(x / (5.0 / sim_box_size)))
+        cosinusValue = np.cos(np.pi*(x / (5.0 / self.sim_box_size)))
 
-        return np.sum(np.less(np.abs(x), 0.5 * sim_box_size) * # test if particle is in sim box
-                np.exp(-1. * (5.0 / sim_box_size) * np.abs(x)) * cosinusValue**2, axis=-1) # shape of tripplet window
+        return np.sum(np.less(np.abs(x), 0.5 * self.sim_box_size) * # test if particle is in sim box
+                np.exp(-1. * (5.0 / self.sim_box_size) * np.abs(x)) * cosinusValue**2, axis=-1) # shape of tripplet window
     
     def calc_radFormFactor_Gauss_spherical(self, w):
         """
