@@ -97,7 +97,7 @@ class instantaneousRadiation():
         One_minus_beta_times_n = ((1.0 - np.sum(self.n[:, np.newaxis, :] * beta[np.newaxis, :, :], axis=-1)))
         
         # { n % [ (n - beta) % dot(beta) ]} / {1 - n * beta}^2 and (1 - n * beta) to not run this computation again
-        return non_normed_amplitude * One_minus_beta_times_n[:, :, np.newaxis]**2, One_minus_beta_times_n
+        return non_normed_amplitude * One_minus_beta_times_n[:, :, np.newaxis]**-2, One_minus_beta_times_n
     
     
     def check_Nyquist(self, One_minus_beta_times_n, NyquistFactor=0.5):
