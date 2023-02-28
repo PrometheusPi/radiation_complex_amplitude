@@ -129,7 +129,7 @@ class instantaneousRadiation():
         # TODO: hard coded a Triplett window - needs flexibility 
         x = pos - 0.5 * self.sim_box_size
         # TODO: here seems to be an error in the PIConGPU code (just kept it this wrong way - might need fix soon)
-        cosinusValue = np.cos(np.pi*(x / (5.0 / self.sim_box_size)))
+        cosinusValue = np.cos(np.pi*(x / self.sim_box_size))
 
         return np.sum(np.less(np.abs(x), 0.5 * self.sim_box_size) * # test if particle is in sim box
                 np.exp(-1. * (5.0 / self.sim_box_size) * np.abs(x)) * cosinusValue**2, axis=-1) # shape of tripplet window
